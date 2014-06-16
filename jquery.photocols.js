@@ -68,7 +68,7 @@
 
         for ( var j= 0 ; j < 4 ; j++) {
 
-          var item = data[count++ % data.length];
+          var item = options.data[count++ % options.data.length];
 
               col.append( '<a class="pc-item" href="'+item.url+'" style="background-image:url(' + item.img +
                               ');left:'+ (leftposition*i + gapX/2) +'px;top:'+(topposition + (options.height/2 +options.gap )*j)+
