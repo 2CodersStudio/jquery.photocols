@@ -20,3 +20,15 @@ Bind the plugin to the tag:
           { 'title' : 'Title 2' , 'subtitle' : 'Lorem ipsum' , 'url' : 'http://www.2coders.com' , 'img' :  'http://lorempixel.com/640/480/people/2' },
         ]
       });
+
+You can customize the aspect of the plugin using this options:
+
+Options | Type | Default  
+--- | --- | ---
+bgcolor    | CSS Color | '#000',
+width		  | Integer | 'auto',
+colswidth  | Integer | 200,
+itemheight | Integer | 300,
+height		 | Integer | 600,
+gap        | Integer | 5,
+opacity    | Float (0..1) | 0.3

@@ -1,5 +1,5 @@
 /*!
- * Photocols v0.0
+ * Photocols v0.1
  * Photo navigation moving cols
  * http://2coders.com
  * MIT License
@@ -25,23 +25,21 @@
 		}, options);
 
 		var rows;
-
+		var refreshInterval;
 
     var animate = function (  ) {
 
-			$('.pc-item').each( function (index) {
+			$('#pc-all').css('top', $('#pc-all').position().top + 1) ;
 
-				if ( $(this).position().top  > options.height ) {
+			$('.pc-item').each( function (index) {
+				if ( $('#pc-all').position().top + $(this).position().top  > options.height ) {
 						$(this).css('top',  $(this).position().top - (options.itemheight+options.gap)*rows) ;
 
-				} else {
-					$(this).css('top', $(this).position().top + 1) ;
 				}
-
 			});
 
-
-			setTimeout(function() {
+			refreshInterval = setTimeout(function() {
+				clearInterval(refreshInterval);
     			animate();
 			},50);
 
@@ -49,11 +47,8 @@
 
     var resize = function () {
 
-			$.fx.off = true;
-
+			clearInterval(refreshInterval);
       element.children().remove();
-
-			$.fx.off = false;
 
       var cols = Math.floor( element.width() / ( options.colswidth ) );
       var width = Math.floor(element.width() / cols) - options.gap ;
@@ -62,6 +57,9 @@
 
       var count = 0;
 
+			var all = $('<div id="pc-all" class="pc-all" style="position:absolute"  />');
+			element.append(all);
+
       for ( var i= 0 ; i < cols ; i++) {
 
         var leftposition = Math.floor(element.width() / cols) ;
@@ -69,7 +67,7 @@
 
         var col = $('<div id="pc-col'+i+'" class="pc-col" style="position:absolute"  />');
 
-        element.append(col);
+        all.append(col);
 
         for ( var j= 0 ; j < rows ; j++) {
 
@@ -123,10 +121,7 @@
 
       });
 
-
-
-
-          animate();
+      animate();
 
     };
 
@@ -180,7 +175,6 @@
       });
 
     };
-
 
     $( window ).resize (resize);
 
