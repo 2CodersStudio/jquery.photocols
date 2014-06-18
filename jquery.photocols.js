@@ -14,14 +14,18 @@
 		// set default values
 		// typeNumber < 1 for automatic calculation
 		options	= $.extend( {}, {
-      bgcolor    : '#000',
-      width		  : 'auto',
-			colswidth  : 200,
-			itemheight : 300,
-			height		 : 600,
-      gap        : 5,
-      opacity    : 0.3,
-      data       : {}
+      bgcolor       : '#000',
+      width		     : 'auto',
+			colswidth     : 200,
+			itemheight    : 300,
+			height		    : 600,
+      gap           : 5,
+			opacity       : 0.3,
+			titleSize     : 16,
+			subtitleSize  : 14,
+			opacity       : 0.3,
+			overlayColor  : '#000',
+      data          : {}
 		}, options);
 
 		var rows;
@@ -62,7 +66,7 @@
 
       for ( var i= 0 ; i < cols ; i++) {
 
-        var leftposition = Math.floor(element.width() / cols) ;
+        var leftposition = Math.round(element.width() / cols) ;
         var topposition = Math.floor(Math.random() * options.height);
 
         var col = $('<div id="pc-col'+i+'" class="pc-col" style="position:absolute"  />');
@@ -73,9 +77,18 @@
 
           var item = options.data[count++ % options.data.length];
 
-              col.append( '<a class="pc-item" href="'+item.url+'" style="background-image:url(' + item.img +
-                              ');width:'+ width +'px;left:'+ (leftposition*i + options.gap/2) +'px;top:'+(topposition + (options.itemheight +options.gap )*j)+
-                           'px" data-order="'+ i +'"><div class="pc-item-mask"><span class="pc-item-title" >'+item.title+'</span><span class="pc-item-subtitle">'+item.subtitle+'</span></div></a>');
+					var itemElement = $('<a class="pc-item"><div class="pc-item-overlay"></div><div class="pc-item-mask"><span class="pc-item-title" >'+item.title+'</span><span class="pc-item-subtitle">'+item.subtitle+'</span></div></a>');
+
+					itemElement.attr('href', item.url );
+
+					itemElement.css('background-image', 'url(' + item.img + ')' );
+					itemElement.css('width', width );
+					itemElement.css('left', leftposition*i + options.gap/2 );
+					itemElement.css('top', topposition + (options.itemheight +options.gap )*j );
+
+
+          col.append(itemElement);
+
         };
 
       };
@@ -92,29 +105,40 @@
       element.css('overflow', 'hidden');
       element.css('position', 'relative');
 
+			var insetShadow = $('<div id="pc-inset-shadow" />');
+
+			insetShadow.css('position', 'absolute');
+			insetShadow.css('z-index', '100');
+			insetShadow.css('width', '120%');
+			insetShadow.css('left', '-10%');
+			insetShadow.css('height', options.height );
+			insetShadow.css('box-shadow', 'inset 0 0 10px #000' );
+			insetShadow.css('pointer-events', 'none');
+
+			element.append(insetShadow);
+
       style();
 
       $('.pc-item').hover(function( e ){
 
         if ( e.type === "mouseenter" ) {
-          $(this).css( {
-            'opacity'         : 1,
-            '-webkit-filter'  : "saturate(100%)",
-            'filter'          : "saturate(100%)",
-            'filter'          : "none"
+          $(this).find('.pc-item-overlay').css( {
+            'opacity'         : 0
           });
-          $(this).find('.pc-item-mask').css('bottom', 0);
+          $(this).find('.pc-item-mask').css({
+						'opacity'         : 1,
+						'transition'      : 'opacity 0.2s 0.2s linear',
+					});
 
 
         } else {
-          $(this).css( {
-            'opacity'         : options.opacity,
-            '-webkit-filter'  : "saturate(40%)",
-            'filter'          : "saturate(40%)",
-            //mozilla trick
-            'filter'          : 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale")',
+          $(this).find('.pc-item-overlay').css( {
+            'opacity'         : options.opacity
           });
-          $(this).find('.pc-item-mask').css('bottom', -60);
+          $(this).find('.pc-item-mask').css({
+						'opacity'         : 0,
+						'transition'      : 'opacity 0.2s linear',
+					});
 
 
         }
@@ -127,52 +151,63 @@
 
     var style = function () {
       $('.pc-item').css({
-        'transition'            : 'opacity 0.3s linear',
-        'opacity'               : options.opacity,
         'overflow'              : 'hidden',
         'position'              : 'absolute',
-				//'background-color'			: 'white',
 				'background-position'   : '50% 50%',
         'background-size'       : 'cover',
-        '-webkit-filter'        : 'saturate(40%)',
-        'filter'                : 'saturate(40%)',
-        //mozilla trick
-        'filter'                : 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale")',
         'height'                : options.itemheight,
       });
 
       $('.pc-item-title').css({
         'text-transformation' : 'none',
+				'font-size'           : options.titleSize,
         'font-weight'         : 'bold',
         'transition'          : 'bottom 0.3s ease-in-out',
         'position'            : 'absolute',
-        'top'              	 : 10,
-        'left'                : 10,
+        'top'              	 : 56,
+        'left'                : 15,
         'color'               : '#fff'
       });
 
       $('.pc-item-subtitle').css({
         'text-transformation' : 'none',
+				'font-size'           : options.subtitleSize,
         'font-weight'         : 'normal',
         'transition'          : 'bottom 0.3s ease-in-out',
         'position'            : 'absolute',
-        'top'                 : 30,
-        'left'                : 10,
+        'top'                 : 80,
+        'left'                : 15,
         'color'               : '#fff'
       });
 
 
 
-      $('.pc-item-mask').css({
-        'transition'          : 'bottom 0.3s ease-in-out',
-        'position'            : 'absolute',
-        'bottom'              : '-100px',
-        'left'                : 0,
-        'right'               : 0,
-				'height'              : 60,
+			$('.pc-item-overlay').css({
+				'transition'          : 'opacity 0.3s ease-in-out',
+				'position'            : 'absolute',
+				'opacity'             : options.opacity,
+				'top'                 : 0,
+				'bottom'              : 0,
+				'left'                : 0,
+				'right'               : 0,
+				'background-color'    : options.overlayColor
+			});
+
+			$('.pc-item-mask').css({
+				'transition'          : 'opacity 0.2s 0.2s linear',
+				'position'            : 'absolute',
+				'opacity'             : 0,
+				'bottom'              : 0,
+				'left'                : 0,
+				'right'               : 0,
+				'height'              : 120,
 				'width'               : '100%',
-        'background-color'    : 'rgba(0,0,0,0.6)'
-      });
+				'background-color'    : 'rgba(0,0,0,0.6)',
+				'background'          : '-webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(50%,rgba(0,0,0,0.61)), color-stop(100%,rgba(0,0,0,0.61)))',
+				'background'          : '-webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.61) 50%,rgba(0,0,0,0.61) 100%)',
+				'background'          : 'linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.61) 50%,rgba(0,0,0,0.61) 100%)'
+			});
+
 
     };
 

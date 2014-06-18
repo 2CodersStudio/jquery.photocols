@@ -13,6 +13,12 @@ var data = [
 
 (function ( $ ) {
 
-  $('#photocols').photocols({'data': data});
+  $('#photocols').photocols({
+    colswidth : 200,
+    height : 440,
+    bgcolor : '#fff',
+    opacity: 0.6,
+    gap: 2,
+    data: data});
 
 }( jQuery ));
