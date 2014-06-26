@@ -25,10 +25,14 @@ You can customize the aspect of the plugin using this options:
 
 Options | Type | Default  
 --- | --- | ---
-bgcolor    | CSS Color | '#000',
-width		  | Integer | 'auto',
-colswidth  | Integer | 200,
-itemheight | Integer | 300,
-height		 | Integer | 600,
-gap        | Integer | 5,
-opacity    | Float (0..1) | 0.3
+bgcolor       | CSS Color     | '#000',
+width		     | Integer       | 'auto',
+colswidth     | Integer       | 200,
+itemheight    | Integer       | 300,
+height		    | Integer       | 600,
+gap           | Integer       | 5,
+opacity       | Float (0..1)  | 0.3
+titleSize     | Pixels        | 16
+subtitleSize  | Pixels        | 14
+overlayColor  | CSS Color     | '#000'
+stopOnHover   | Boolean       | true

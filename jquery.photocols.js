@@ -1,5 +1,5 @@
 /*!
- * Photocols v0.1
+ * Photocols v1.0.1
  * Photo navigation moving cols
  * http://2coders.com
  * MIT License
@@ -12,7 +12,6 @@
     element = this;
 
 		// set default values
-		// typeNumber < 1 for automatic calculation
 		options	= $.extend( {}, {
       bgcolor       : '#000',
       width		     : 'auto',
@@ -20,11 +19,11 @@
 			itemheight    : 300,
 			height		    : 600,
       gap           : 5,
-			opacity       : 0.3,
 			titleSize     : 16,
 			subtitleSize  : 14,
 			opacity       : 0.3,
 			overlayColor  : '#000',
+			stopOnHover   : true,
       data          : {}
 		}, options);
 
@@ -33,7 +32,13 @@
 
     var animate = function (  ) {
 
-			$('#pc-all').css('top', $('#pc-all').position().top + 1) ;
+			$('#pc-all').css('top', $('#pc-all').position().top + 1);
+
+			if ( options.stopOnHover ) {
+				$('.pc-col-active .pc-item').each( function (index) {
+							$(this).css('top',  $(this).position().top - 1) ;
+				});
+			}
 
 			$('.pc-item').each( function (index) {
 				if ( $('#pc-all').position().top + $(this).position().top  > options.height ) {
@@ -67,7 +72,7 @@
       for ( var i= 0 ; i < cols ; i++) {
 
         var leftposition = Math.round(element.width() / cols) ;
-        var topposition = Math.floor(Math.random() * options.height);
+        var topposition = Math.floor(Math.random() * options.itemheight);
 
         var col = $('<div id="pc-col'+i+'" class="pc-col" style="position:absolute"  />');
 
@@ -130,6 +135,8 @@
 						'transition'      : 'opacity 0.2s 0.2s linear',
 					});
 
+					$(this).parent('.pc-col').addClass('pc-col-active');
+
 
         } else {
           $(this).find('.pc-item-overlay').css( {
@@ -140,6 +147,7 @@
 						'transition'      : 'opacity 0.2s linear',
 					});
 
+					$(this).parent('.pc-col').removeClass('pc-col-active');
 
         }
 
