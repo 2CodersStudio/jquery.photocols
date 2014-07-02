@@ -1,6 +1,6 @@
 # jquery.photocols.js
 
-<a href='http://2coders.com'>jquery.photocols.js</a>
+Made by <a href='http://2coders.com'>2Coders Studio</a> in Canary Islands
 
 ## How to Use It
 
