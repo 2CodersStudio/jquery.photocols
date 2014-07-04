@@ -7,6 +7,10 @@ Made by <a href='http://2coders.com'>2Coders Studio</a> in Canary Islands
 You have to include this line into your page header
 
     <script type="text/javascript" src="jquery.photocols.min.js"></script>
+    
+Or use the CDN version at www.cdnjs.com:
+
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.photocols/1.0.2/jquery.photocols.min.js"></script>
 
 Then create a div to cantain the photocols navigation
 
@@ -20,6 +24,8 @@ Bind the plugin to the tag:
           { 'title' : 'Title 2' , 'subtitle' : 'Lorem ipsum' , 'url' : 'http://www.2coders.com' , 'img' :  'http://lorempixel.com/640/480/people/2' },
         ]
       });
+
+## Parameters
 
 You can customize the aspect of the plugin using this options:
 
