@@ -114,10 +114,10 @@
 
 			insetShadow.css('position', 'absolute');
 			insetShadow.css('z-index', '100');
-			insetShadow.css('width', '120%');
-			insetShadow.css('left', '-10%');
+			insetShadow.css('width', '100%');
+			insetShadow.css('left', 0);
 			insetShadow.css('height', options.height );
-			insetShadow.css('box-shadow', 'inset 0 0 10px #000' );
+			insetShadow.css('box-shadow', 'inset  0  10px 10px -10px #000, inset  0 -10px 10px -10px #000' );
 			insetShadow.css('pointer-events', 'none');
 
 			element.append(insetShadow);
