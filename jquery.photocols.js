@@ -1,5 +1,5 @@
 /*!
- * Photocols v1.0.1
+ * Photocols v1.0.3
  * Photo navigation moving cols
  * http://2coders.com
  * MIT License
