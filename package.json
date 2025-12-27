@@ -1,8 +1,28 @@
 {
   "name": "jquery.photocols",
-  "filename": "jquery.photocols.min.js",
-  "version": "1.0.3",
-  "description": "Photocols: A photo navigation for jQuery",
+  "version": "2.0.0",
+  "type": "module",
+  "description": "Photocols: An animated photo gallery with scrolling columns and rows for jQuery. Supports vertical/horizontal scrolling, variable speeds, lazy loading.",
+  "main": "dist/jquery.photocols.js",
+  "module": "dist/jquery.photocols.esm.js",
+  "types": "jquery.photocols.d.ts",
+  "files": [
+    "dist/",
+    "src/",
+    "jquery.photocols.d.ts"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/jquery.photocols.esm.js",
+      "require": "./dist/jquery.photocols.js",
+      "types": "./jquery.photocols.d.ts"
+    },
+    "./dist/*": "./dist/*"
+  },
+  "unpkg": "dist/jquery.photocols.min.js",
+  "jsdelivr": "dist/jquery.photocols.min.js",
+  "browser": "dist/jquery.photocols.min.js",
+  "sideEffects": false,
   "author": "Dailos Medina <dailos@2coders.com>",
   "contributors": [
     {
@@ -14,44 +34,51 @@
       "email": "david@2coders.com"
     }
   ],
-  "homepage": "http://2coders.com",
-  "docs": "http://2coders.com",
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://www.opensource.org/licenses/mit-license.php"
-    }
-  ],
+  "homepage": "https://github.com/2CodersTeam/jquery.photocols",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/2CodersTeam/jquery.photocols.git"
   },
-  "npmName": "jquery.photocols",
-  "npmFileMap": [
-    {
-      "basePath": "/dist/",
-      "files": [
-        "jquery.photocols.min.js"
-      ]
-    }
-  ],
-  "dependencies": {
-    "jquery": ">=1.7"
+  "bugs": {
+    "url": "https://github.com/2CodersTeam/jquery.photocols/issues"
   },
-  "jam": {
-    "main": "jquery.photocols.js",
-    "dependencies": {
-      "jquery": ">=1.7"
-    },
-    "shim": {
-      "deps": [
-        "jquery"
-      ]
-    }
+  "keywords": [
+    "jquery",
+    "jquery-plugin",
+    "gallery",
+    "photo",
+    "animation",
+    "columns",
+    "rows",
+    "responsive",
+    "masonry",
+    "grid",
+    "parallax",
+    "lazy-loading",
+    "horizontal-scroll",
+    "vertical-scroll"
+  ],
+  "peerDependencies": {
+    "jquery": ">=1.7.0"
   },
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-contrib-clean": "^0.5.0",
-    "grunt-contrib-uglify": "^0.5.0"
+    "@playwright/test": "^1.57.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "rollup": "^4.54.0",
+    "rollup-plugin-filesize": "^10.0.0",
+    "serve": "^14.2.0"
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "npm run clean && rollup -c",
+    "build:watch": "rollup -c -w",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

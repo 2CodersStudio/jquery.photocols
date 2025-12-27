@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photocols Test Page</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="/dist/jquery.photocols.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: sans-serif;
+    }
+    .gallery {
+      margin-bottom: 20px;
+    }
+    #status {
+      padding: 10px;
+      background: #f0f0f0;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="status">Ready</div>
+
+  <div id="gallery1" class="gallery"></div>
+  <div id="gallery2" class="gallery"></div>
+  <div id="gallery3" class="gallery"></div>
+  <div id="gallery4" class="gallery"></div>
+  <div id="gallery5" class="gallery"></div>
+
+  <script>
+    // Test data
+    window.testData = [
+      { title: 'Photo 1', subtitle: 'Subtitle 1', url: '#link1', img: 'https://picsum.photos/seed/1/400/300' },
+      { title: 'Photo 2', subtitle: 'Subtitle 2', url: '#link2', img: 'https://picsum.photos/seed/2/400/300' },
+      { title: 'Photo 3', subtitle: 'Subtitle 3', url: '#link3', img: 'https://picsum.photos/seed/3/400/300' },
+      { title: 'Photo 4', subtitle: 'Subtitle 4', url: '#link4', img: 'https://picsum.photos/seed/4/400/300' },
+      { title: 'Photo 5', subtitle: 'Subtitle 5', url: '#link5', img: 'https://picsum.photos/seed/5/400/300' },
+    ];
+
+    // XSS test data (escape closing script tag to prevent HTML parsing issues)
+    window.xssTestData = [
+      { title: '<script>alert("xss")<\/script>', subtitle: '<img src=x onerror=alert(1)>', url: '#', img: 'https://picsum.photos/seed/1/400/300' },
+    ];
+
+    // Helper to update status
+    window.setStatus = function(msg) {
+      document.getElementById('status').textContent = msg;
+    };
+
+    // Initialize on demand via test
+    window.initGallery = function(selector, options) {
+      return $(selector).photocols(options);
+    };
+
+    // Method helpers
+    window.callMethod = function(selector, method) {
+      return $(selector).photocols(method);
+    };
+  </script>
+</body>
+</html>

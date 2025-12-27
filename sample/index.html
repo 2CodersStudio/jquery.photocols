@@ -1,34 +1,305 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Photocols - Feature Showcase</title>
+    <meta name="description" content="jQuery Photocols - Animated photo gallery with scrolling columns">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="css/normalize.min.css">
-        <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/normalize.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 40px;
+        }
+        .section {
+            margin-bottom: 60px;
+        }
+        .section-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #fff;
+            border-left: 4px solid #4a9eff;
+            padding-left: 15px;
+        }
+        .section-desc {
+            color: #aaa;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+        }
+        .gallery {
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .code-block {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 15px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            color: #c9d1d9;
+            white-space: pre;
+            line-height: 1.5;
+        }
+        .code-block .comment { color: #8b949e; }
+        .code-block .keyword { color: #ff7b72; }
+        .code-block .string { color: #a5d6ff; }
+        .code-block .number { color: #79c0ff; }
+        .code-block .property { color: #d2a8ff; }
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 8px 16px;
+            background: #238636;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+        .btn:hover {
+            background: #2ea043;
+        }
+        .btn.secondary {
+            background: #21262d;
+            border: 1px solid #30363d;
+        }
+        .btn.secondary:hover {
+            background: #30363d;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+        }
+        .grid-item .gallery {
+            height: 300px;
+        }
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            border-top: 1px solid #30363d;
+            margin-top: 40px;
+        }
+        footer a {
+            color: #4a9eff;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 600px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Photocols</h1>
+        <p class="subtitle">Animated photo gallery with vertically and horizontally scrolling columns</p>
 
-        <!--[if lt IE 9]>
-            <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script>
-        <![endif]-->
-    </head>
-    <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+        <!-- Data Format -->
+        <div class="section">
+            <h2 class="section-title">Data Format</h2>
+            <p class="section-desc">Each photo item requires a title, subtitle, URL, and image source.</p>
+            <div class="code-block">
+<span class="keyword">var</span> data = [
+  {
+    <span class="property">title</span>: <span class="string">'Mountain View'</span>,      <span class="comment">// Title shown on hover</span>
+    <span class="property">subtitle</span>: <span class="string">'Nature Photography'</span>, <span class="comment">// Subtitle shown on hover</span>
+    <span class="property">url</span>: <span class="string">'https://example.com'</span>,   <span class="comment">// Link when clicked</span>
+    <span class="property">img</span>: <span class="string">'https://picsum.photos/640/480'</span> <span class="comment">// Image URL</span>
+  },
+  {
+    <span class="property">title</span>: <span class="string">'City Lights'</span>,
+    <span class="property">subtitle</span>: <span class="string">'Urban Landscape'</span>,
+    <span class="property">url</span>: <span class="string">'https://example.com'</span>,
+    <span class="property">img</span>: <span class="string">'https://picsum.photos/640/480'</span>
+  },
+  <span class="comment">// ... more items</span>
+];
+            </div>
+        </div>
 
-        <p>Hello world! This is HTML5 Boilerplate.</p>
+        <!-- Basic Example -->
+        <div class="section">
+            <h2 class="section-title">Basic Usage (Default - Scroll Up)</h2>
+            <p class="section-desc">The default behavior with columns scrolling upward.</p>
+            <div id="gallery-basic" class="gallery"></div>
+            <div class="code-block">
+<span class="keyword">$</span>(<span class="string">'#gallery'</span>).<span class="property">photocols</span>({
+  <span class="property">height</span>: <span class="number">400</span>,
+  <span class="property">colswidth</span>: <span class="number">200</span>,
+  <span class="property">data</span>: data
+});
+            </div>
+        </div>
 
-        <div id="photocols"></div>
+        <!-- Direction Examples Grid -->
+        <div class="section">
+            <h2 class="section-title">Scroll Directions</h2>
+            <p class="section-desc">Support for all four scroll directions: up, down, left, and right.</p>
+            <div class="grid">
+                <div class="grid-item">
+                    <h3>Direction: Up (Default)</h3>
+                    <div id="gallery-up" class="gallery"></div>
+                </div>
+                <div class="grid-item">
+                    <h3>Direction: Down</h3>
+                    <div id="gallery-down" class="gallery"></div>
+                </div>
+                <div class="grid-item">
+                    <h3>Direction: Left</h3>
+                    <div id="gallery-left" class="gallery"></div>
+                </div>
+                <div class="grid-item">
+                    <h3>Direction: Right</h3>
+                    <div id="gallery-right" class="gallery"></div>
+                </div>
+            </div>
+            <div class="code-block">
+<span class="comment">// Horizontal scrolling (left to right)</span>
+<span class="keyword">$</span>(<span class="string">'#gallery'</span>).<span class="property">photocols</span>({
+  <span class="property">direction</span>: <span class="string">'right'</span>,  <span class="comment">// 'up' | 'down' | 'left' | 'right'</span>
+  <span class="property">height</span>: <span class="number">300</span>,
+  <span class="property">data</span>: data
+});
+            </div>
+        </div>
 
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <!-- Variable Speed -->
+        <div class="section">
+            <h2 class="section-title">Variable Speed (Parallax Effect)</h2>
+            <p class="section-desc">Each column/row moves at a different speed, creating a parallax effect.</p>
+            <div id="gallery-parallax" class="gallery"></div>
+            <div class="code-block">
+<span class="keyword">$</span>(<span class="string">'#gallery'</span>).<span class="property">photocols</span>({
+  <span class="property">variableSpeed</span>: <span class="keyword">true</span>,
+  <span class="property">speedVariation</span>: <span class="number">0.6</span>,  <span class="comment">// 40% to 160% of base speed</span>
+  <span class="property">animationSpeed</span>: <span class="number">0.7</span>,  <span class="comment">// Slower for smooth parallax</span>
+  <span class="property">data</span>: data
+});
+            </div>
+        </div>
 
-        <script src="../jquery.photocols.js"></script>
-        <script src="js/main.js"></script>
-    </body>
+        <!-- Pause All on Hover -->
+        <div class="section">
+            <h2 class="section-title">Pause All on Hover</h2>
+            <p class="section-desc">Hover anywhere on the gallery to pause the entire animation (not just the active column).</p>
+            <div id="gallery-pause-all" class="gallery"></div>
+            <div class="code-block">
+<span class="keyword">$</span>(<span class="string">'#gallery'</span>).<span class="property">photocols</span>({
+  <span class="property">pauseAllOnHover</span>: <span class="keyword">true</span>,
+  <span class="property">data</span>: data
+});
+            </div>
+        </div>
+
+        <!-- Lazy Loading -->
+        <div class="section">
+            <h2 class="section-title">Lazy Loading</h2>
+            <p class="section-desc">Images are loaded only when they're about to enter the viewport. Ideal for large galleries.</p>
+            <div id="gallery-lazy" class="gallery"></div>
+            <div class="code-block">
+<span class="keyword">$</span>(<span class="string">'#gallery'</span>).<span class="property">photocols</span>({
+  <span class="property">lazyLoad</span>: <span class="keyword">true</span>,
+  <span class="property">lazyLoadThreshold</span>: <span class="number">150</span>,  <span class="comment">// Start loading 150px before visible</span>
+  <span class="property">placeholderColor</span>: <span class="string">'#2d2d44'</span>,
+  <span class="property">data</span>: data
+});
+            </div>
+        </div>
+
+        <!-- Combined Features -->
+        <div class="section">
+            <h2 class="section-title">Combined Features</h2>
+            <p class="section-desc">All features combined: horizontal scrolling, variable speed, pause all on hover, and lazy loading.</p>
+            <div class="controls">
+                <button class="btn" onclick="$('#gallery-combined').photocols('pause')">Pause</button>
+                <button class="btn secondary" onclick="$('#gallery-combined').photocols('resume')">Resume</button>
+                <button class="btn secondary" onclick="$('#gallery-combined').photocols('refresh')">Refresh</button>
+            </div>
+            <div id="gallery-combined" class="gallery"></div>
+            <div class="code-block">
+<span class="keyword">$</span>(<span class="string">'#gallery'</span>).<span class="property">photocols</span>({
+  <span class="property">direction</span>: <span class="string">'left'</span>,
+  <span class="property">variableSpeed</span>: <span class="keyword">true</span>,
+  <span class="property">speedVariation</span>: <span class="number">0.5</span>,
+  <span class="property">pauseAllOnHover</span>: <span class="keyword">true</span>,
+  <span class="property">lazyLoad</span>: <span class="keyword">true</span>,
+  <span class="property">lazyLoadThreshold</span>: <span class="number">100</span>,
+  <span class="property">height</span>: <span class="number">450</span>,
+  <span class="property">animationSpeed</span>: <span class="number">0.6</span>,
+  <span class="property">data</span>: data
+});
+            </div>
+        </div>
+
+        <!-- Custom Styling -->
+        <div class="section">
+            <h2 class="section-title">Custom Styling</h2>
+            <p class="section-desc">Customize colors, overlay, and typography.</p>
+            <div id="gallery-styled" class="gallery"></div>
+            <div class="code-block">
+<span class="keyword">$</span>(<span class="string">'#gallery'</span>).<span class="property">photocols</span>({
+  <span class="property">bgcolor</span>: <span class="string">'#0a192f'</span>,
+  <span class="property">overlayColor</span>: <span class="string">'#0a192f'</span>,
+  <span class="property">opacity</span>: <span class="number">0.5</span>,
+  <span class="property">titleSize</span>: <span class="number">18</span>,
+  <span class="property">subtitleSize</span>: <span class="number">14</span>,
+  <span class="property">gap</span>: <span class="number">4</span>,
+  <span class="property">data</span>: data
+});
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>Made with care by <a href="https://2coders.com">2Coders Studio</a> in Canary Islands</p>
+        <p><a href="https://github.com/2coders/jquery.photocols">GitHub</a></p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../dist/jquery.photocols.js"></script>
+    <script src="js/main.js"></script>
+</body>
 </html>

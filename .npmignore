@@ -1,0 +1,21 @@
+# Source control
+.git/
+.gitignore
+.github/
+
+# Tests
+tests/
+playwright.config.js
+playwright-report/
+test-results/
+
+# Sample
+sample/
+
+# IDE
+.idea/
+.vscode/
+
+# Misc
+*.log
+.DS_Store
