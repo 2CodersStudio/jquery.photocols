@@ -232,6 +232,9 @@ test.describe('Photocols Plugin', () => {
         window.initGallery('#gallery1', { height: 400, data: window.testData });
       });
 
+      // Pause animation so elements are stable for hover
+      await page.evaluate(() => window.callMethod('#gallery1', 'pause'));
+
       const firstItem = page.locator('#gallery1 .pc-item').first();
       const mask = firstItem.locator('.pc-item-mask');
 
@@ -250,6 +253,9 @@ test.describe('Photocols Plugin', () => {
       await page.evaluate(() => {
         window.initGallery('#gallery1', { height: 400, opacity: 0.5, data: window.testData });
       });
+
+      // Pause animation so elements are stable for hover
+      await page.evaluate(() => window.callMethod('#gallery1', 'pause'));
 
       const firstItem = page.locator('#gallery1 .pc-item').first();
       const overlay = firstItem.locator('.pc-item-overlay');
