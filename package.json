@@ -75,8 +75,7 @@
     "build:watch": "rollup -c -w",
     "test": "playwright test",
     "test:ui": "playwright test --ui",
-    "test:headed": "playwright test --headed",
-    "prepublishOnly": "npm run build"
+    "test:headed": "playwright test --headed"
   },
   "engines": {
     "node": ">=18.0.0"
