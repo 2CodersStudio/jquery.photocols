@@ -4,6 +4,8 @@ An animated photo gallery with scrolling columns and rows for jQuery. Supports v
 
 Made by [2Coders Studio](http://2coders.com) in Canary Islands
 
+**[Live Demo](https://2codersstudio.github.io/jquery.photocols/)**
+
 ## Features
 
 - **Multi-directional scrolling** - Up, down, left, or right
@@ -37,12 +39,12 @@ Download the minified file and include it in your page:
 
 Via unpkg:
 ```html
-<script src="https://unpkg.com/jquery.photocols@2.0.0/dist/jquery.photocols.min.js"></script>
+<script src="https://unpkg.com/jquery.photocols@2/dist/jquery.photocols.min.js"></script>
 ```
 
 Via jsDelivr:
 ```html
-<script src="https://cdn.jsdelivr.net/npm/jquery.photocols@2.0.0/dist/jquery.photocols.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.photocols@2/dist/jquery.photocols.min.js"></script>
 ```
 
 ## Usage

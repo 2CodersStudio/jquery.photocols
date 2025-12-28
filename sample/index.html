@@ -299,7 +299,16 @@
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="../dist/jquery.photocols.js"></script>
+    <script>
+        // Load local dist for development, CDN for production (GitHub Pages)
+        var isLocal = location.hostname === 'localhost' ||
+                      location.hostname === '127.0.0.1' ||
+                      location.protocol === 'file:';
+        var src = isLocal
+            ? '../dist/jquery.photocols.js'
+            : 'https://unpkg.com/jquery.photocols@2/dist/jquery.photocols.min.js';
+        document.write('<script src="' + src + '"><\/script>');
+    </script>
     <script src="js/main.js"></script>
 </body>
 </html>
