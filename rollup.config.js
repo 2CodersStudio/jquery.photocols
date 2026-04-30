@@ -1,8 +1,7 @@
-import terser from '@rollup/plugin-terser';
-import filesize from 'rollup-plugin-filesize';
-import { readFileSync } from 'fs';
+import terser from "@rollup/plugin-terser";
+import { readFileSync } from "fs";
 
-const pkg = JSON.parse(readFileSync('./package.json', 'utf8'));
+const pkg = JSON.parse(readFileSync("./package.json", "utf8"));
 
 const banner = `/*!
  * ${pkg.name} v${pkg.version}
@@ -26,60 +25,60 @@ const terserOptions = {
 export default [
   // UMD build (for browsers, CDN, script tags)
   {
-    input: 'src/jquery.photocols.js',
+    input: "src/jquery.photocols.js",
     output: {
-      file: 'dist/jquery.photocols.js',
-      format: 'umd',
-      name: 'photocols',
+      file: "dist/jquery.photocols.js",
+      format: "umd",
+      name: "photocols",
       banner,
-      exports: 'named',
+      exports: "named",
       globals: {
-        jquery: 'jQuery',
+        jquery: "jQuery",
       },
       sourcemap: true,
     },
-    external: ['jquery'],
-    plugins: [filesize()],
+    external: ["jquery"],
+    plugins: [],
   },
   // UMD minified
   {
-    input: 'src/jquery.photocols.js',
+    input: "src/jquery.photocols.js",
     output: {
-      file: 'dist/jquery.photocols.min.js',
-      format: 'umd',
-      name: 'photocols',
+      file: "dist/jquery.photocols.min.js",
+      format: "umd",
+      name: "photocols",
       banner,
-      exports: 'named',
+      exports: "named",
       globals: {
-        jquery: 'jQuery',
+        jquery: "jQuery",
       },
       sourcemap: true,
     },
-    external: ['jquery'],
-    plugins: [terser(terserOptions), filesize()],
+    external: ["jquery"],
+    plugins: [terser(terserOptions)],
   },
   // ESM build (for modern bundlers)
   {
-    input: 'src/jquery.photocols.js',
+    input: "src/jquery.photocols.js",
     output: {
-      file: 'dist/jquery.photocols.esm.js',
-      format: 'esm',
+      file: "dist/jquery.photocols.esm.js",
+      format: "esm",
       banner,
       sourcemap: true,
     },
-    external: ['jquery'],
-    plugins: [filesize()],
+    external: ["jquery"],
+    plugins: [],
   },
   // ESM minified
   {
-    input: 'src/jquery.photocols.js',
+    input: "src/jquery.photocols.js",
     output: {
-      file: 'dist/jquery.photocols.esm.min.js',
-      format: 'esm',
+      file: "dist/jquery.photocols.esm.min.js",
+      format: "esm",
       banner,
       sourcemap: true,
     },
-    external: ['jquery'],
-    plugins: [terser(terserOptions), filesize()],
+    external: ["jquery"],
+    plugins: [terser(terserOptions)],
   },
 ];

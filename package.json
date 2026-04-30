@@ -64,9 +64,8 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.57.0",
-    "@rollup/plugin-terser": "^0.4.4",
-    "rollup": "^4.54.0",
-    "rollup-plugin-filesize": "^10.0.0",
+    "@rollup/plugin-terser": "^1.0.0",
+    "rollup": "^4.59.0",
     "serve": "^14.2.0"
   },
   "scripts": {
