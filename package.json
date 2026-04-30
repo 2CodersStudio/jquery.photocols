@@ -1,6 +1,6 @@
 {
   "name": "jquery.photocols",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "type": "module",
   "description": "Photocols: An animated photo gallery with scrolling columns and rows for jQuery. Supports vertical/horizontal scrolling, variable speeds, lazy loading.",
   "main": "dist/jquery.photocols.js",
